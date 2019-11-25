@@ -13,6 +13,26 @@ export default class SignUp extends React.Component {
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
+  
+  //-------------------------------------------------------//
+  // var user = firebase.auth().currentUser;
+  // var uid = user.uid;
+  //
+  // var ref2 = firebase.database().ref('/users').child("/items");
+  // ref2.child(uid).set({
+  //   items: quantity
+  // });
+//-----------------------------------------------------------//
+  // firebase.database().ref("users/" + user.uid + "/items").update({
+  //   item: name, quantity
+  // });
+//--------------------------------------------------------//
+  // firebase.database().ref(`/voting-app/users/${userID}/newPoll`).set(newPoll)
+  //   .then(() => {
+  //     console.log("New poll data sent!")
+  //   })
+  //   .catch(error => console.log("Error when creating new poll.", error));
+
   render() {
     return (
       <View style={styles.container}>

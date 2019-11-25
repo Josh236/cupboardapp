@@ -9,19 +9,8 @@ import {
   Alert
 } from 'react-native';
 import firebase from '../firebase/config';
-//import OptionNavigator from './addoptions/navigationstack';
 
-// var user = firebase.auth().currentUser;
-// var uid = user.uid;
-//
-// var ref2 = firebase.database().ref('/users').child("/items");
-// ref2.child(uid).set({
-//   items: quantity
-// });
-
-// firebase.database().ref("users/" + user.uid + "/items").update({
-//   item: name, quantity
-// });
+import OptionNavigator from './addoptions/navigationstack';
 
 let addItem = item => {
   firebase.database().ref('/items').push({
