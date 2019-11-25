@@ -11,12 +11,24 @@ import {
 import firebase from '../firebase/config';
 //import OptionNavigator from './addoptions/navigationstack';
 
+// var user = firebase.auth().currentUser;
+// var uid = user.uid;
+//
+// var ref2 = firebase.database().ref('/users').child("/items");
+// ref2.child(uid).set({
+//   items: quantity
+// });
+
+// firebase.database().ref("users/" + user.uid + "/items").update({
+//   item: name, quantity
+// });
+
 let addItem = item => {
   firebase.database().ref('/items').push({
     name: item
   });
   console.log(item)
-  
+
 };
 
 export default class camera extends Component {
@@ -24,7 +36,7 @@ export default class camera extends Component {
     super(props);
     this.state = {
       name: ''
-     
+
     };
 
   }
@@ -59,7 +71,7 @@ export default class camera extends Component {
             underlayColor="white"
             onPress={this.handleSubmit}>
           <Text style={styles.buttonText}>Add</Text>
-      </TouchableHighlight>  
+      </TouchableHighlight>
       {/* <OptionNavigator/> */}
       </View>
     );
