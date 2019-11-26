@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
-import firebase from '../../../firebase/config';
+import firebase from '../firebase/config';
 
 export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null}
@@ -9,36 +9,9 @@ export default class SignUp extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('./Welcome'))
+      .then(() => this.props.navigation.navigate('Welcome'))
       .catch(error => this.setState({ errorMessage: error.message }))
   }
-
-  // var userId = firebase.auth().currentUser.uid;
-  // var database = firebase.database();
-  //
-  // function writeItemData( userId, email ){
-  //   firebase.database().ref('users/' + userId + 'items/').set({
-  //     name: item
-  //   });
-  // }
-  //-------------------------------------------------------//
-  // var user = firebase.auth().currentUser;
-  // var uid = user.uid;
-  //
-  // var ref2 = firebase.database().ref('/users').child("/items");
-  // ref2.child(uid).set({
-  //   items: quantity
-  // });
-//-----------------------------------------------------------//
-  // firebase.database().ref("users/" + user.uid + "/items").update({
-  //   item: name, quantity
-  // });
-//--------------------------------------------------------//
-  // firebase.database().ref(`/users/${userID}/items`).set(items)
-  //   .then(() => {
-  //     Alert.alert("New item data sent");
-  //   })
-  //   .catch(error => Alert.alert("Error when adding new item.", error));
 
   render() {
     return (

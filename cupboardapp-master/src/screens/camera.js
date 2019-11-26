@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import firebase from '../firebase/config';
 
-import OptionNavigator from './addoptions/navigationstack';
 var userId = firebase.auth().currentUser.uid;
 
 let addItem = item => {
@@ -18,6 +17,8 @@ let addItem = item => {
     name: item
   });
   console.log(item)
+
+};
 
 };
 
@@ -62,7 +63,6 @@ export default class camera extends Component {
             onPress={this.handleSubmit}>
           <Text style={styles.buttonText}>Add</Text>
       </TouchableHighlight>
-      {/* <OptionNavigator/> */}
       </View>
     );
   }
