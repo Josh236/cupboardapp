@@ -13,7 +13,7 @@ export default class SignUp extends React.Component {
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
-  
+
   //-------------------------------------------------------//
   // var user = firebase.auth().currentUser;
   // var uid = user.uid;
@@ -27,11 +27,11 @@ export default class SignUp extends React.Component {
   //   item: name, quantity
   // });
 //--------------------------------------------------------//
-  // firebase.database().ref(`/voting-app/users/${userID}/newPoll`).set(newPoll)
+  // firebase.database().ref(`/users/${userID}/items`).set(items)
   //   .then(() => {
-  //     console.log("New poll data sent!")
+  //     Alert.alert("New item data sent");
   //   })
-  //   .catch(error => console.log("Error when creating new poll.", error));
+  //   .catch(error => Alert.alert("Error when adding new item.", error));
 
   render() {
     return (
