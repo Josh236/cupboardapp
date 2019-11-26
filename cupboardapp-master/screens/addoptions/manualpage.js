@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class manualpage extends Component {
+export default class Manualpage extends Component {
   constructor(props) {
     super(props);
     this.state = {

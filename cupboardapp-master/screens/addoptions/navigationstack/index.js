@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator} from 'react-navigation-stack';
 import { Button } from 'react-native';
 
-import Manualpage from '../manualpage.js';
+import Manualpage from '../manualpage';
 
 
 const OptionNavigator = createStackNavigator({
@@ -16,4 +16,4 @@ const OptionNavigator = createStackNavigator({
   });
 
 
-  export default createAppContainer(OptionNavigator);  
+  export default createAppContainer(OptionNavigator);

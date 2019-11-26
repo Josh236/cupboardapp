@@ -11,9 +11,10 @@ import {
 import firebase from '../firebase/config';
 
 import OptionNavigator from './addoptions/navigationstack';
+var userId = firebase.auth().currentUser.uid;
 
 let addItem = item => {
-  firebase.database().ref('/items').push({
+  firebase.database().ref('/users' + userId + '/items').push({
     name: item
   });
   console.log(item)
