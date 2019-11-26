@@ -10,15 +10,13 @@ import {
 } from 'react-native';
 import firebase from '../firebase/config';
 
-var userId = firebase.auth().currentUser.uid;
+// var userId = firebase.auth().currentUser.uid;
 
 let addItem = item => {
-  firebase.database().ref('/users' + userId + '/items').push({
+  firebase.database().ref('/users/items').push({
     name: item
   });
   console.log(item)
-
-};
 
 };
 
