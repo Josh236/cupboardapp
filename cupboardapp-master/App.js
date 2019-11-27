@@ -15,7 +15,7 @@ export default class App extends Component {
     return (
       <View style={{flex: 1, backgroundColor: 'white', paddingTop: 0}}>
         <NavStack />
-        {/* <Navigation /> */}
+        <Navigation />
       </View>
     );
   }

@@ -9,6 +9,15 @@ import {
   Alert
 } from 'react-native';
 import firebase from '../firebase/config';
+//const firebase = require("firebase");
+require("firebase/firestore");
+
+var db = firebase.firestore();
+
+db.collection("items").doc("shoppinglist").set({
+  name: radish,
+  quantity: 1
+});
 
 var userId = firebase.auth().currentUser.uid;
 
