@@ -16,21 +16,22 @@ import Styles from '../styles';
 import Typography from '../styles/typography';
 import Colors from '../styles/colors';
 import Icon from 'react-native-vector-icons/Feather';
-import {connect} from 'react-redux'
-import {addtitle} from '../store/actions/stockActions'
+import {connect} from 'react-redux';
 let count = -1;
 let dataCount = 0;
 
 class Ingredientsform extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       textInput: [],
       enteredText: [],
+      title: props.navigation.state.params.title,
     };
   }
 
   componentDidMount() {
+    console.log('ingredients form :' + this.state.title);
     this.addTextInput(this.state.textInput.length);
     this.setState({
       quantVar: 1,
@@ -58,45 +59,32 @@ class Ingredientsform extends React.Component {
   };
 
   nextEntry = () => {
-    this.props.addtitle(this.state.title)
-    //console.log(this.props);
     dataCount = dataCount + 1;
     console.log('Ingredient: ' + this.state.ingredient);
     console.log('Quantity: ' + this.state.quantVar);
-    
-    // firebase
-    //   .firestore()
-    //   .collection('items')
-    //   .doc('Test Recipe')
-    //   .add({ingredient[dataCount]: [this.state.ingredient, this.state.quantVar]});
 
     var ingredientOp = this.state.ingredient;
 
-    const titlePrint = this.props.toString();
+    var docName = this.state.title;
+
+    var uid = this.props.uid;
 
     var ref = firebase
       .firestore()
-      .collection('items')
-      .doc(titlePrint);
+      .collection('users')
+      .doc(uid)
+      .collection('recipes')
+      .doc(docName)
+      .collection('ingredients')
+      .doc(ingredientOp);
 
     var merge = ref.set(
       {
-        ingredient1: {
-          ingredient: this.state.ingredient,
-          quantity: this.state.quantVar,
-        },
+        category: this.state.ingredient,
+        quantity: this.state.quantVar,
       },
       {merge: true},
     );
-    // switch (dataCount) {
-    //   case 1:
-    //     var merge = ref.set(
-    //       {ingredient1: [this.state.ingredient, this.state.quantVar]},
-    //       {merge: true},
-    //     );
-    //     break;
-    //   default:
-    // }
 
     this.state.quantSep = this.state.quantVar;
     this.addTextInput(this.state.textInput.length);
@@ -114,7 +102,9 @@ class Ingredientsform extends React.Component {
     this.textInput;
     this.displayText(this.state.enteredText.length);
     this.enteredText;
-    this.props.navigation.navigate('Manualmethod');
+    this.props.navigation.navigate('Manualmethod', {
+      title: this.state.title,
+    });
   };
 
   addTextInput = key => {
@@ -241,8 +231,7 @@ class Ingredientsform extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  title: state.title
-})
+  uid: state.firebase.auth.uid,
+});
 
-
-export default connect(mapStateToProps, {addtitle})(Ingredientsform)
+export default connect(mapStateToProps)(Ingredientsform);

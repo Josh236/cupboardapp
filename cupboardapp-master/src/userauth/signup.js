@@ -8,23 +8,6 @@ import firebase from '../firebase/config';
 import {signup} from '../store/actions/authActions';
 import {Formik, ErrorMessage} from 'formik';
 
-const hasValid = values => {
-  let errors = {};
-  let {email, password} = values;
-  if (!email) {
-    errors.email = 'Email is required!';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-    errors.email = 'Invalid email address';
-  }
-  if (!password) {
-    errors.password = 'Password is required!';
-  } else if (/^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*)$/i.test(password)) {
-    errors.password =
-      'Password has to be at least 8 characters, one letter and one number';
-  }
-  return errors;
-};
-
 class SignUp extends React.Component {
   state = {displayName: '', email: '', password: ''};
 
@@ -77,17 +60,13 @@ class SignUp extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({signup}, dispatch);
-};
-
 const mapStateToProps = state => {
   return {
     user: state.user,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps)(SignUp);
 
 const styles = StyleSheet.create({
   container: {

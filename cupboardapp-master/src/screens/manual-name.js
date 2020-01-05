@@ -1,41 +1,21 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import firebase from '../firebase/config';
 import Styles from '../styles';
 import Colors from '../styles/colors';
 import Typography from '../styles/typography';
 import Icon from 'react-native-vector-icons/Feather';
-import {connect} from 'react-redux';
-import {addtitle} from '../store/actions/stockActions';
-let titlePrint = '';
 
 class Manualname extends Component {
-// state = {
-//   title: '',
-// }
+  state = {
+    title: '',
+  };
 
   addTitle = () => {
-    this.props.addtitle(this.state);
-    //console.log(this.state)
-    // //console.log('Title: ' + this.state.title);
-    // titlePrint = this.props.title.toString();
-    //console.log('Title2: ' + titlePrint);
-    // firebase
-    //   .firestore()
-    //   .collection('items')
-    //   .doc(titlePrint)
-    //   .set({title: titlePrint});
-    //this.props.navigation.navigate('Manualingredients');
+    let titlePrint = this.state.title;
+    this.props.navigation.navigate('Manualingredients', {
+      title: this.state.title,
+    });
   };
 
   render() {
@@ -48,7 +28,7 @@ class Manualname extends Component {
               name="arrow-left"
               color={Colors.black}
               size={30}
-              onPress={() => this.props.navigation.navigate('Splash')}
+              onPress={() => this.props.navigation.goBack()}
             />
           </TouchableOpacity>
         </View>
@@ -99,26 +79,8 @@ class Manualname extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#131420',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 0,
-  },
-});
-
 const mapStateToProps = state => ({
-    content: state.content
+  auth: state.firebase.auth,
 });
 
-// const mapDispatchToProps = dispatch =>{
-//   return {
-//     addtitle: content => dispatch(addtitle(content)),
-//   }
-// }
-
-
-export default connect(mapStateToProps, {addtitle})(Manualname)
-
+export default Manualname;

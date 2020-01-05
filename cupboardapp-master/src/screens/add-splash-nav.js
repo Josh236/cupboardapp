@@ -2,7 +2,7 @@ import React from 'react';
 import {createSwitchNavigator} from 'react-navigation';
 import Splash from './add-splash';
 import manualingredients from './manual-ingredients';
-import camera from './camera';
+import camera from './camera-upload';
 import manualname from './manual-name';
 
 const SplashNav = createSwitchNavigator(

@@ -9,29 +9,34 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {signup} from '../store/actions/authActions';
 import {bindActionCreators} from 'redux';
-import {login} from '../store/actions/authActions';
+import {isLoaded, isEmpty} from 'react-redux-firebase';
+import {Formik} from 'formik';
 import Styles from '../styles';
 import * as yup from 'yup';
-import {Formik} from 'formik';
-import {isLoaded, isEmpty} from 'react-redux-firebase';
-import {AsyncStorage} from '@react-native-community/async-storage';
 
-const Login = ({login, navigation, auth, loading}) => {
+const SignUp = ({signup, navigation, auth}) => {
   return (
     <View style={[Styles.standardBlock, Styles.centerElement]}>
-      <Image style={Styles.largeIcon} source={require('../assets/icon.png')} />
+      <Image
+        style={Styles.largeIcon}
+        source={require('../assets/icon.png')}></Image>
       <Formik
         enableReinitialize={true}
-        initialValues={{email: '', password: ''}}
+        initialValues={{displayName: '', email: '', password: ''}}
         onSubmit={async (values, {setSubmitting}) => {
-          await login(values);
+          await signup(values);
           setSubmitting(false);
-          isLoaded(loading);
-          navigation.navigate(auth ? 'Loading' : 'Welcome');
-          // navigation.navigate(LOGIN_SUCCESS, 'Welcome');
+          isLoaded(auth);
+          navigation.navigate('Loading');
         }}
         validationSchema={yup.object().shape({
+          displayName: yup
+            .string()
+            .required('Nickname is required.')
+            .min(3, 'Too short')
+            .max(25, 'Too long.'),
           email: yup
             .string()
             .email('Invalid email')
@@ -52,6 +57,19 @@ const Login = ({login, navigation, auth, loading}) => {
           handleSubmit,
         }) => (
           <Fragment>
+            <TextInput
+              value={values.displayName}
+              style={styles.textInput}
+              autoCapitalize="words"
+              onChangeText={handleChange('displayName')}
+              placeholder="Name"
+              onBlur={() => setFieldTouched('displayName')}
+            />
+            {touched.displayName && errors.displayName && (
+              <Text style={{fontSize: 10, color: 'red'}}>
+                {errors.displayName}
+              </Text>
+            )}
             <TextInput
               value={values.email}
               style={styles.textInput}
@@ -76,14 +94,13 @@ const Login = ({login, navigation, auth, loading}) => {
               </Text>
             )}
             <Button
-              title="Login"
+              title="Sign Up"
               disabled={!isValid || isSubmitting}
-              // onPress={handleSubmit}
-              onPress={() => navigation.navigate('Main')}
+              onPress={handleSubmit}
             />
             <Button
-              title="Sign Up"
-              onPress={() => navigation.navigate('Signup')}
+              title="Already have an account? Login"
+              onPress={() => navigation.navigate('Login')}
             />
           </Fragment>
         )}
@@ -92,24 +109,20 @@ const Login = ({login, navigation, auth, loading}) => {
   );
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    signup: newUser => dispatch(signup(newUser)),
+  };
+};
+
 const mapStateToProps = state => {
   return {
     authError: state.auth.authError,
     auth: state.firebase.auth,
-    loading: state.auth.loading,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    login: data => dispatch(login(data)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
 const styles = StyleSheet.create({
   container: {

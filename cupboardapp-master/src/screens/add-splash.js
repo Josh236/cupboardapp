@@ -29,7 +29,7 @@ class Splash extends Component {
           <View style={Styles.halfButtonBlock}>
             <TouchableOpacity
               style={[Styles.halfButton, Styles.peachButton]}
-              onPress={() => this.props.navigation.navigate('camera')}>
+              onPress={() => this.props.navigation.navigate('Camera')}>
               <Text style={Styles.buttonText}>Camera Upload</Text>
             </TouchableOpacity>
             <TouchableOpacity
