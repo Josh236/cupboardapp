@@ -56,7 +56,7 @@ export default class Cameranice extends Component {
       console.log('visionResp', visionResp);
       db.collection("items").doc("cameratest").set({
         ingredients: {
-          ingredient: visionResp
+          ingredient: visionResp.text
         }
       })
 
